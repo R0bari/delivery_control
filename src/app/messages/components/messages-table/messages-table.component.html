@@ -1,0 +1,53 @@
+<div class="table-container">
+  <table mat-table matSort [dataSource]="dataSource">
+    <ng-container matColumnDef="destinationEmail">
+      <th class="table-header" mat-header-cell mat-sort-header *matHeaderCellDef>Кому</th>
+      <td class="table-cell" mat-cell *matCellDef="let message">
+        {{message.destinationEmail}}
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="theme">
+      <th class="table-header" mat-header-cell mat-sort-header *matHeaderCellDef>Тема</th>
+      <td class="table-cell" mat-cell *matCellDef="let message">{{message.theme ? message.theme : '<Без темы>'}}</td>
+    </ng-container>
+    <ng-container matColumnDef="scheduleDate">
+      <th class="table-header scheduleDate" mat-header-cell mat-sort-header *matHeaderCellDef>Запланировано</th>
+      <td class="table-cell scheduleDate" mat-cell *matCellDef="let message">
+        {{message.scheduleDate ? toLocalDate(message.scheduleDate) : ''}}
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="chosenDeliveryServiceId">
+      <th class="table-header chosenDeliveryService" mat-header-cell mat-sort-header *matHeaderCellDef>Выбранный
+        сервис</th>
+      <td class="table-cell chosenDeliveryService" mat-cell *matCellDef="let message">
+        {{message.chosenDeliveryService.deliveryServiceName}}
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="destinationDate">
+      <th class="table-header scheduleDate" mat-header-cell mat-sort-header *matHeaderCellDef>Доставлено</th>
+      <td class="table-cell chosenDeliveryService" mat-cell *matCellDef="let message">
+        {{message.destinationDate ? toLocalDate(message.destinationDate): ''}}
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="deliveryStatus">
+      <th class="table-header" mat-header-cell mat-sort-header *matHeaderCellDef>Статус доставки</th>
+      <td class="table-cell" mat-cell *matCellDef="let message">
+                <span [ngClass]="determineDeliveryStatisCSSClass(message)">
+                    {{getDeliveryStatusString(message)}}
+                </span>
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="buttons">
+      <th class="table-header" mat-header-cell *matHeaderCellDef>
+        <button mat-raised-button class="system-button" (click)="onUpdate()">Обновить</button>
+      </th>
+      <td class="table-cell buttons" mat-cell *matCellDef="let message">
+        <button mat-button class="delete-button" (click)="onDelete(message.messageId)">Удалить</button>
+      </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="tableColumns"></tr>
+    <tr class="table-row" mat-row *matRowDef="let myRowData; columns: tableColumns"></tr>
+  </table>
+  <mat-paginator [pageSizeOptions]="[10, 25, 50]" showFirstLastButtons>
+  </mat-paginator>
+</div>

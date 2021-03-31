@@ -1,0 +1,56 @@
+@import "../../../shared/styles/table-buttons.scss";
+
+form {
+  padding: 25px 0 0 30px;
+  width: 800px;
+}
+mat-form-field {
+  display: block;
+}
+
+textarea {
+  min-height: 200px;
+}
+
+.delivery-service-block {
+  display: flex;
+}
+
+.delivery-service {
+  float: left;
+}
+
+.delivery-service, .schedule-date {
+  width: 280px;
+}
+
+.mat-icon-reload {
+  float: left;
+  margin-left: 10px;
+  line-height: 55px;
+  cursor: pointer;
+}
+
+mat-checkbox {
+  display: flex;
+  flex-direction:row;
+  justify-content: flex-start;
+  margin: 0 1.34375em 1.34375em 0;
+}
+
+// Checkbox color
+// ----------------------------------------------------------------
+::ng-deep .mat-checkbox-checked.mat-accent .mat-checkbox-ripple .mat-ripple-element {
+  opacity: 0.03 !important;
+  background-color: #1f98ad !important;
+}
+
+::ng-deep .mat-checkbox-checked.mat-accent .mat-checkbox-background,
+.mat-checkbox-indeterminate.mat-accent .mat-checkbox-background {
+  background-color: #1f98ad;
+}
+// ----------------------------------------------------------------
+
+.system-button {
+  float: right;
+}

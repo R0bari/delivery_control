@@ -1,0 +1,38 @@
+.menu-container {
+  position: fixed;
+  left: 0;
+  top: 67px;
+  width: 240px;
+  height: 100vh;
+  background-color: #34495e;
+  color: #ffffff;
+  text-align: center;
+}
+
+ul {
+  margin: 15px 0;
+}
+
+li {
+  text-align: left;
+  font-size: 18px;
+  margin: 10px 30px;
+  cursor: pointer;
+  list-style-type: none;
+}
+li:hover {
+  color: #cbeaf0;
+}
+li:focus {
+  outline: none;
+}
+.main-element {
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+}
+
+.bi {
+  margin: 0 4px -2px 0;
+  width: 16px;
+  height: 16px;
+}

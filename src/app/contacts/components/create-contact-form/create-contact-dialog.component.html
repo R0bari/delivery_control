@@ -1,0 +1,13 @@
+<h2>Новый контакт</h2>
+<form [formGroup]="form">
+  <mat-form-field appearance="outline">
+    <mat-label>Имя контакта</mat-label>
+    <input matInput formControlName="contactName">
+  </mat-form-field>
+  <mat-form-field appearance="outline" >
+    <mat-label>Адрес контакта</mat-label>
+    <input matInput formControlName="contactEmail">
+  </mat-form-field>
+  <button mat-raised-button class="close-button" (click)="onClose()">Отмена</button>
+  <button mat-raised-button class="add-button" (click)="onSubmit()">Создать</button>
+</form>

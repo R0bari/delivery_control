@@ -1,0 +1,36 @@
+@import "../../../shared/styles/table.scss";
+@import "../../../shared/styles/table-buttons.scss";
+
+.table-row {
+  height: 56px;
+}
+
+.chosenDeliveryService {
+  width: 250px;
+}
+
+.scheduleDate {
+  width: 280px;
+}
+
+.scheduled {
+  padding: 5px 10px;
+  background-color: #f5f82b9d;
+  border-radius: 5px;
+}
+.failed {
+  padding: 5px 10px;
+  background-color: #f82b2b81;
+  border-radius: 5px;
+}
+.successful {
+  padding: 5px 10px;
+  background-color: #2bf87ae0;
+  border-radius: 5px;
+}
+
+.system-button, .delete-button {
+  float: right;
+}
+
+svg { cursor: pointer; }

@@ -1,0 +1,14 @@
+@import "../../../shared/styles/table-buttons.scss";
+
+mat-form-field {
+  display: block;
+  width: 100%;
+}
+
+.close-button {
+  float: left;
+}
+
+.add-button {
+  float: right;
+}

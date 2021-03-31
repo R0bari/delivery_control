@@ -1,0 +1,23 @@
+<div class="table-container">
+  <table mat-table [dataSource]="deliveryServices">
+    <ng-container matColumnDef="deliveryServiceLogo">
+      <th class="logo-header" mat-header-cell *matHeaderCellDef></th>
+      <td class="logo-cell" mat-cell *matCellDef="let service">
+        <img class="service-logo" src="../../../../assets/img/services/{{service.deliveryServiceName}}_logo.png"
+             alt="Логотип {{service.deliveryServiceName}}"/>
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="deliveryServiceName">
+      <th class="table-header" mat-header-cell *matHeaderCellDef> Название сервиса</th>
+      <td class="table-cell" mat-cell *matCellDef="let service"> {{service.deliveryServiceName}} </td>
+    </ng-container>
+    <ng-container matColumnDef="standartPriority">
+      <th class="priority-header" mat-header-cell *matHeaderCellDef>
+        <p>Приоритет сервиса</p>
+        <p class="description">(Чем ближе к 0, тем выше)</p></th>
+      <td class="priority-cell" mat-cell *matCellDef="let service"> {{service.standartPriority}} </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="tableColumns"></tr>
+    <tr class="table-row" mat-row *matRowDef="let myRowData; columns: tableColumns"></tr>
+  </table>
+</div>

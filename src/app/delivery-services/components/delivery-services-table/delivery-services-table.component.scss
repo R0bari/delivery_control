@@ -1,0 +1,30 @@
+@import "../../../shared/styles/table";
+
+.mat-row {
+  height: 110px;
+}
+
+.service-logo {
+  width: 100px;
+}
+
+.logo-header, .logo-cell {
+  width: 140px;
+}
+
+.priority-cell, .priority-header {
+  text-align: center;
+}
+
+p {
+  margin-bottom: 0!important;
+}
+
+.description {
+  font-size: 10px;
+}
+
+.table-container {
+  width: 900px;
+  margin: 0 auto;
+}
