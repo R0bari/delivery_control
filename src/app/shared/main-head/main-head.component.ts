@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {AuthService} from '../../auth/services/auth.service';
 
 @Component({
   selector: 'app-main-head',
@@ -8,9 +9,12 @@ import { Component, OnInit } from '@angular/core';
 export class MainHeadComponent implements OnInit {
   title = 'Delivery Control';
 
-  constructor() { }
+  constructor(private authService: AuthService) { }
 
   ngOnInit(): void {
   }
 
+  onSignOut(): void {
+    this.authService.signOut();
+  }
 }

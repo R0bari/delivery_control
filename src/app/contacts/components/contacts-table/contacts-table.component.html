@@ -15,10 +15,10 @@
       </ng-container>
       <ng-container matColumnDef="buttons">
         <th class="table-header" mat-header-cell *matHeaderCellDef>
-          <button mat-raised-button class="system-button">Обновить</button>
+          <button mat-raised-button class="button__system">Обновить</button>
         </th>
         <td class="table-cell" mat-cell *matCellDef="let contact">
-          <button mat-button class="delete-button" (click)="onDelete(contact.contactId)">Удалить</button>
+          <button mat-button class="button__delete" (click)="onDelete(contact.contactId)">Удалить</button>
         </td>
       </ng-container>
       <tr mat-header-row *matHeaderRowDef="tableColumns"></tr>
@@ -29,5 +29,5 @@
       showFirstLastButtons>
     </mat-paginator>
   </div>
-  <button mat-raised-button class="add-button" (click)="onAdd()">Добавить</button>
+  <button mat-raised-button class="button__add" (click)="onAdd()">Добавить</button>
 </div>

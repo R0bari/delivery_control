@@ -39,10 +39,10 @@
     </ng-container>
     <ng-container matColumnDef="buttons">
       <th class="table-header" mat-header-cell *matHeaderCellDef>
-        <button mat-raised-button class="system-button" (click)="onUpdate()">Обновить</button>
+        <button mat-raised-button class="button__system" (click)="onUpdate()">Обновить</button>
       </th>
       <td class="table-cell buttons" mat-cell *matCellDef="let message">
-        <button mat-button class="delete-button" (click)="onDelete(message.messageId)">Удалить</button>
+        <button mat-button class="button__delete" (click)="onDelete(message.messageId)">Удалить</button>
       </td>
     </ng-container>
     <tr mat-header-row *matHeaderRowDef="tableColumns"></tr>

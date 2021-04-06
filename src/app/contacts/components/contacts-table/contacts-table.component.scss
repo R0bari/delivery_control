@@ -11,11 +11,12 @@
   width: 20%!important;
 }
 
-.system-button, .delete-button {
-  float: right;
-}
-
-.add-button {
-  position: absolute;
-  margin: 10px 25px;
+.button {
+  &__system, &__delete {
+    float: right;
+  }
+  &__add {
+    position: absolute;
+    margin: 10px 25px;
+  }
 }

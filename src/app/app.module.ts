@@ -8,11 +8,14 @@ import {AppRoutingModule} from './app-routing.module';
 import {SharedModule} from './shared/shared.module';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {HttpClientModule} from '@angular/common/http';
+import {CardComponent} from './shared/card/card.component';
+import {LayoutGuestComponent} from './layout/layout-guest/layout-guest.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LayoutMainComponent
+    LayoutMainComponent,
+    LayoutGuestComponent
   ],
   imports: [
     BrowserModule,

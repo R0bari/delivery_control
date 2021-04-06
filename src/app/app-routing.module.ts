@@ -1,6 +1,7 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {LayoutMainComponent} from './layout/layout-main/layout-main.component';
+import {LayoutGuestComponent} from './layout/layout-guest/layout-guest.component';
 
 const routes: Routes = [
   {
@@ -22,6 +23,16 @@ const routes: Routes = [
       {
         path: 'contacts',
         loadChildren: () => import('../app/contacts/contacts.module').then(m => m.ContactsModule)
+      }
+    ]
+  },
+  {
+    path: 'guest',
+    component: LayoutGuestComponent,
+    children: [
+      {
+        path: '',
+        loadChildren: () => import('../app/auth/auth.module').then(m => m.AuthModule)
       }
     ]
   }

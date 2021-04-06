@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
+import {Observable} from 'rxjs';
+import {Contact} from '../models/Contact';
 
 @Injectable({
   providedIn: 'root'
@@ -10,15 +12,15 @@ export class ContactsService {
 
   constructor(private http: HttpClient) { }
 
-  getContacts() {
+  getContacts(): Observable<any> {
     return this.http.get(environment.defaultUrl + this.controllerUrl + 'list');
   }
 
-  deleteContact(id: number) {
+  deleteContact(id: number): Observable<any> {
     return this.http.delete(environment.defaultUrl + this.controllerUrl + id);
   }
 
-  insertContact(contact) {
+  insertContact(contact: Contact): Observable<any> {
     return this.http.post(environment.defaultUrl + this.controllerUrl, contact);
   }
 }

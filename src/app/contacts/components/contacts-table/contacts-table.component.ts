@@ -38,7 +38,8 @@ export class ContactsTableComponent implements OnInit {
       width: '350px'
     }).afterClosed().subscribe(result => {
       if (result) {
-        const contact = {
+        const contact: Contact = {
+          contactId: null,
           contactName: result.get('contactName').value,
           contactEmail: result.get('contactEmail').value,
           userId: 4 // TODO: after implementation auth: currentUserId
@@ -47,9 +48,9 @@ export class ContactsTableComponent implements OnInit {
           .subscribe((response: any) => {
             if (response.isSuccess) {
               this.contactsService.getContacts()
-                .subscribe((response: any) => {
-                  if (response.isSuccess) {
-                    this.updateContacts(response.data);
+                .subscribe((res: any) => {
+                  if (res.isSuccess) {
+                    this.updateContacts(res.data);
                   }
                 });
             }

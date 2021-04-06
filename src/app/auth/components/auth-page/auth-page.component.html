@@ -1,0 +1,13 @@
+<h2>Авторизация</h2>
+<form [formGroup]="form">
+  <mat-form-field appearance="outline">
+    <mat-label>Почта</mat-label>
+    <input matInput formControlName="email">
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Пароль</mat-label>
+    <input matInput formControlName="password" type='password'>
+  </mat-form-field>
+  <button mat-raised-button class="button__system" (click)="onSignIn()">Войти</button>
+  <button mat-raised-button class="button__add" (click)="toRegPage()">Регистрация</button>
+</form>

@@ -5,10 +5,11 @@ mat-form-field {
   width: 100%;
 }
 
-.close-button {
-  float: left;
-}
-
-.add-button {
-  float: right;
+.button {
+  &__close {
+    float: left;
+  }
+  &__add {
+    float: right;
+  }
 }
