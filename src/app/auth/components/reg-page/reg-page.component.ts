@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup} from '@angular/forms';
 import {Router} from '@angular/router';
 import {User} from '../../models/User';
 import {AuthService} from '../../services/auth.service';
+import {NotificationService} from '../../../shared/services/notification.service';
 
 @Component({
   selector: 'app-reg-page',
@@ -15,6 +16,7 @@ export class RegPageComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder,
               private authService: AuthService,
+              private notificationService: NotificationService,
               private router: Router) { }
 
   ngOnInit(): void {
@@ -50,7 +52,11 @@ export class RegPageComponent implements OnInit {
   private handleSignUpResponse(response: any): void {
     if (response.isSuccess) {
       this.authService.writeTokenToLocalStorage(response);
-      this.router.navigate(['/']);
+      this.router.navigate(['/']).then(() =>
+        this.notificationService.showSuccess('Успешная регистрация', 'Регистрация завершена успешно')
+      );
+      return;
     }
+    this.notificationService.showError('Ошибка регистрации', 'Не удалось зарегистрироваться');
   }
 }

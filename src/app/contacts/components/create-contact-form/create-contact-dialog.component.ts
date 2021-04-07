@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {MatDialogRef} from '@angular/material/dialog';
+import {NotificationService} from '../../../shared/services/notification.service';
 
 @Component({
   selector: 'app-create-contact-dialog',
@@ -11,6 +12,7 @@ export class CreateContactDialogComponent implements OnInit {
   form: FormGroup;
 
   constructor(private formBuilder: FormBuilder,
+              private notificationService: NotificationService,
               public dialogRef: MatDialogRef<CreateContactDialogComponent>) { }
 
   ngOnInit(): void {
@@ -20,11 +22,10 @@ export class CreateContactDialogComponent implements OnInit {
   onSubmit(): void {
     if (this.form.valid) {
       this.dialogRef.close(this.form);
-    }
-    else {
-      alert('Не все поля заполнены корректно');
+      this.notificationService.showSuccess('Успешное создание контакта', 'Контакт успешно создан');
       return;
     }
+    this.notificationService.showError('Ошибка', 'Ошибка при создании контакта');
   }
 
   onClose(): void {

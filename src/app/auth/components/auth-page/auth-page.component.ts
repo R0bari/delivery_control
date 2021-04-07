@@ -1,8 +1,10 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {Form, FormBuilder, FormGroup} from '@angular/forms';
-import {Router} from '@angular/router';
+
 import {AuthService} from '../../services/auth.service';
 import {User} from '../../models/User';
+import {NotificationService} from '../../../shared/services/notification.service';
+import {Component, OnInit} from '@angular/core';
+import {FormBuilder, FormGroup} from '@angular/forms';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-auth-page',
@@ -14,6 +16,7 @@ export class AuthPageComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder,
               private authService: AuthService,
+              private notificationService: NotificationService,
               private router: Router) { }
 
   ngOnInit(): void {
@@ -44,7 +47,11 @@ export class AuthPageComponent implements OnInit {
   private handleSignInResponse(response: any): void {
     if (response.isSuccess) {
       this.authService.writeTokenToLocalStorage(response);
-      this.router.navigate(['/']);
+      this.router.navigate(['/']).then(() =>
+        this.notificationService.showSuccess('Успешная авторизация', 'Авторизация завершена успешно')
+      );
+      return;
     }
+    this.notificationService.showError('Ошибка авторизации', 'Не удалось авторизоваться');
   }
 }

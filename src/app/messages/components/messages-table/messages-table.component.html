@@ -32,7 +32,7 @@
     <ng-container matColumnDef="deliveryStatus">
       <th class="table-header" mat-header-cell mat-sort-header *matHeaderCellDef>Статус доставки</th>
       <td class="table-cell" mat-cell *matCellDef="let message">
-                <span [ngClass]="determineDeliveryStatisCSSClass(message)">
+                <span [ngClass]="determineDeliveryStatusCSSClass(message)">
                     {{getDeliveryStatusString(message)}}
                 </span>
       </td>

@@ -6,6 +6,7 @@ import {MatTableDataSource} from '@angular/material/table';
 import {Contact} from '../../models/Contact';
 import {ContactsService} from '../../services/contacts.service';
 import {CreateContactDialogComponent} from '../create-contact-form/create-contact-dialog.component';
+import {NotificationService} from '../../../shared/services/notification.service';
 
 @Component({
   selector: 'app-contacts-table',
@@ -22,12 +23,7 @@ export class ContactsTableComponent implements OnInit {
   constructor(private contactsService: ContactsService,
               private cdr: ChangeDetectorRef,
               public dialog: MatDialog) {
-    this.contactsService.getContacts()
-      .subscribe((response: any) => {
-        if (response.isSuccess) {
-          this.updateContacts(response.data);
-        }
-      });
+    this.updateContacts();
   }
 
   ngOnInit(): void {
@@ -47,16 +43,15 @@ export class ContactsTableComponent implements OnInit {
         this.contactsService.insertContact(contact)
           .subscribe((response: any) => {
             if (response.isSuccess) {
-              this.contactsService.getContacts()
-                .subscribe((res: any) => {
-                  if (res.isSuccess) {
-                    this.updateContacts(res.data);
-                  }
-                });
+              this.updateContacts();
             }
           });
       }
     });
+  }
+
+  onUpdate(): void {
+    this.updateContacts();
   }
 
   onDelete(contactId: number): void {
@@ -71,11 +66,15 @@ export class ContactsTableComponent implements OnInit {
       });
   }
 
-  updateContacts(contacts: Contact[]): void {
-    this.dataSource = new MatTableDataSource(contacts);
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
-    this.cdr.detectChanges();
+  updateContacts(): void {
+    this.contactsService.getContacts()
+      .subscribe((res: any) => {
+        if (res.isSuccess) {
+          this.dataSource = new MatTableDataSource(res.data);
+          this.dataSource.paginator = this.paginator;
+          this.dataSource.sort = this.sort;
+          this.cdr.detectChanges();
+        }
+      });
   }
-
 }

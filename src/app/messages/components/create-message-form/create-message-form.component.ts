@@ -5,6 +5,7 @@ import {DeliveryService} from '../../../delivery-services/models/DeliveryService
 import {DeliveryServicesService} from '../../../delivery-services/services/delivery-services.service';
 import {MessagesService} from '../../services/messages.service';
 import {Message} from '../../models/Message';
+import {NotificationService} from '../../../shared/services/notification.service';
 
 @Component({
   selector: 'app-create-message-form',
@@ -24,6 +25,7 @@ export class CreateMessageFormComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
               private deliveryServicesService: DeliveryServicesService,
               private messagesService: MessagesService,
+              private notificationService: NotificationService,
               private router: Router) {}
 
   ngOnInit(): void {
@@ -69,8 +71,11 @@ export class CreateMessageFormComponent implements OnInit {
     this.messagesService.insertMessage(message)
       .subscribe((response: any) => {
         if (response.isSuccess) {
-          this.router.navigate(['/messages']);
+          this.router.navigate(['/messages']).then(() =>
+            this.notificationService.showSuccess('Письмо создано', 'Письмо успешно создано'));
+          return;
         }
+        this.notificationService.showError('Ошибка', 'Ошибка при создании письма');
       });
   }
 

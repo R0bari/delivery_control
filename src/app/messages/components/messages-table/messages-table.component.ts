@@ -5,6 +5,7 @@ import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {MessagesService} from '../../services/messages.service';
 import {DeliveryStatuses} from '../../../delivery-services/models/DeliveryStatuses';
+import {NotificationService} from '../../../shared/services/notification.service';
 
 @Component({
   selector: 'app-messages-table',
@@ -13,7 +14,8 @@ import {DeliveryStatuses} from '../../../delivery-services/models/DeliveryStatus
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MessagesTableComponent implements OnInit {
-  tableColumns = ['destinationEmail',
+  tableColumns = [
+    'destinationEmail',
     'theme',
     'scheduleDate',
     'chosenDeliveryServiceId',
@@ -30,7 +32,8 @@ export class MessagesTableComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(public messagesService: MessagesService, private cdr: ChangeDetectorRef) {
+  constructor(public messagesService: MessagesService,
+              private cdr: ChangeDetectorRef) {
     this.dataSource = new MatTableDataSource([]);
     this.updateMessagesList();
   }
@@ -79,24 +82,12 @@ export class MessagesTableComponent implements OnInit {
     });
   }
 
-  determineScheduleDateCSSClass(message: Message): string {
-    if (this.isDatePast(message.scheduleDate)) {
-      return message.isSent
-        ? 'successful'
-        : 'failed';
-    }
-    return message.scheduleDate ? 'future' : '';
-  }
-
-  determineDeliveryStatisCSSClass(message: Message): string {
+  determineDeliveryStatusCSSClass(message: Message): string {
     switch (message.deliveryStatus) {
       case DeliveryStatuses.awaiting: return 'scheduled';
       case DeliveryStatuses.successful: return 'successful';
       case DeliveryStatuses.failed: return 'failed';
     }
-  }
-  private isDatePast(scheduleDate: Date): boolean {
-    return scheduleDate && new Date(scheduleDate) < new Date();
   }
 
   getDeliveryStatusString(message: Message): string {

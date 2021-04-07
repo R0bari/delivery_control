@@ -15,7 +15,7 @@
       </ng-container>
       <ng-container matColumnDef="buttons">
         <th class="table-header" mat-header-cell *matHeaderCellDef>
-          <button mat-raised-button class="button__system">Обновить</button>
+          <button mat-raised-button class="button__system" (click)="onUpdate()">Обновить</button>
         </th>
         <td class="table-cell" mat-cell *matCellDef="let contact">
           <button mat-button class="button__delete" (click)="onDelete(contact.contactId)">Удалить</button>

@@ -3,6 +3,8 @@ import {environment} from '../../../environments/environment';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {User} from '../models/User';
+import {Router} from '@angular/router';
+import {NotificationService} from '../../shared/services/notification.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +13,9 @@ export class AuthService {
   controllerUrl = 'auth/';
   tokenKey = 'jwt';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,
+              private router: Router,
+              private notificationService: NotificationService) { }
 
   signIn(user: User): Observable<any> {
     return this.http.post(
@@ -24,7 +28,11 @@ export class AuthService {
   }
 
   signOut(): void {
-    localStorage.setItem(this.tokenKey, null);
+    this.router.navigate(['guest/auth']).then(() => localStorage.setItem(this.tokenKey, null));
+  }
+
+  getToken(): string {
+    return localStorage.getItem(this.tokenKey);
   }
 
   writeTokenToLocalStorage(response: any): void {

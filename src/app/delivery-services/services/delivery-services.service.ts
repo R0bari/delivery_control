@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
+import {Observable} from 'rxjs';
+import {AuthService} from '../../auth/services/auth.service';
 
 
 @Injectable({
@@ -9,9 +11,13 @@ import { environment } from 'src/environments/environment';
 export class DeliveryServicesService {
   controllerUrl = 'services/';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,
+              private authService: AuthService) { }
 
-  getDeliveryServices() {
-    return this.http.get(environment.defaultUrl + this.controllerUrl + 'list');
+  getDeliveryServices(): Observable<any> {
+    const headers = {Accept: 'application/json', Authorization: 'Bearer ' + this.authService.getToken()};
+    return this.http.get(
+      environment.defaultUrl + this.controllerUrl + 'list',
+      {headers});
   }
 }

@@ -2,6 +2,8 @@ import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {environment} from 'src/environments/environment';
 import {Message} from '../models/Message';
+import {AuthService} from '../../auth/services/auth.service';
+import {Observable} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -9,17 +11,28 @@ import {Message} from '../models/Message';
 export class MessagesService {
   controllerUrl = 'messages/';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,
+              private authService: AuthService) { }
 
-  getMessages() {
-    return this.http.get(environment.defaultUrl + this.controllerUrl + 'list');
+  getMessages(): Observable<any> {
+    const headers = {Accept: 'application/json', Authorization: 'Bearer ' + this.authService.getToken()};
+    return this.http.get(
+      environment.defaultUrl + this.controllerUrl + 'list',
+      {headers});
   }
 
-  deleteMessage(id: number) {
-    return this.http.delete(environment.defaultUrl + this.controllerUrl + id);
+  deleteMessage(id: number): Observable<any> {
+    const headers = {Accept: 'application/json', Authorization: 'Bearer ' + this.authService.getToken()};
+    return this.http.delete(
+      environment.defaultUrl + this.controllerUrl + id,
+      {headers});
   }
 
-  insertMessage(message: Message) {
-    return this.http.post(environment.defaultUrl + this.controllerUrl, message);
+  insertMessage(message: Message): Observable<any> {
+    const headers = {Accept: 'application/json', Authorization: 'Bearer ' + this.authService.getToken()};
+    return this.http.post(
+      environment.defaultUrl + this.controllerUrl,
+      message,
+      {headers});
   }
 }
