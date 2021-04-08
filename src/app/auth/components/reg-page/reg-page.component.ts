@@ -51,7 +51,7 @@ export class RegPageComponent implements OnInit {
 
   private handleSignUpResponse(response: any): void {
     if (response.isSuccess) {
-      this.authService.writeTokenToLocalStorage(response);
+      this.authService.writeAuthInfoToLocalStorage(response);
       this.router.navigate(['/']).then(() =>
         this.notificationService.showSuccess('Успешная регистрация', 'Регистрация завершена успешно')
       );

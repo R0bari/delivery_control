@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {AuthService} from '../../../auth/services/auth.service';
 
 @Component({
   selector: 'app-greeting-page',
@@ -7,7 +8,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class GreetingPageComponent implements OnInit {
 
-  constructor() { }
+  constructor(private authService: AuthService) {
+    //  Для проверки авторизованного пользователя
+    this.authService.check();
+  }
 
   ngOnInit(): void {
   }

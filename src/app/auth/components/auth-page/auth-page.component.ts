@@ -46,7 +46,7 @@ export class AuthPageComponent implements OnInit {
 
   private handleSignInResponse(response: any): void {
     if (response.isSuccess) {
-      this.authService.writeTokenToLocalStorage(response);
+      this.authService.writeAuthInfoToLocalStorage(response);
       this.router.navigate(['/']).then(() =>
         this.notificationService.showSuccess('Успешная авторизация', 'Авторизация завершена успешно')
       );
