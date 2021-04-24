@@ -1,0 +1,11 @@
+<div class="details-container">
+  <h3>
+    Информация о сообщении
+    <button (click)="backToMessagesList()" mat-raised-button class="button__system button-back"><mat-icon>arrow_back</mat-icon>Назад</button>
+  </h3>
+  <div class="destination">Кому: <span class="destination__email">{{message?.destinationEmail || 'Почта получателя'}}</span></div>
+  <div class="theme">Тема: {{message?.theme || 'Тема письма'}}</div>
+  <div class="body-title">Сообщение</div>
+  <div class="body">{{message?.body || 'Текст сообщения'}}</div>
+  <h3>Файлы</h3>
+</div>

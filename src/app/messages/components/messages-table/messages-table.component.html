@@ -3,7 +3,7 @@
     <ng-container matColumnDef="destinationEmail">
       <th class="table-header" mat-header-cell mat-sort-header *matHeaderCellDef>Кому</th>
       <td class="table-cell" mat-cell *matCellDef="let message">
-        {{message.destinationEmail}}
+          {{message.destinationEmail}}
       </td>
     </ng-container>
     <ng-container matColumnDef="theme">
@@ -39,14 +39,14 @@
     </ng-container>
     <ng-container matColumnDef="buttons">
       <th class="table-header" mat-header-cell *matHeaderCellDef>
-        <button mat-raised-button class="button__system" (click)="onUpdate()">Обновить</button>
+        <button mat-raised-button class="button__system" (click)="update()">Обновить</button>
       </th>
       <td class="table-cell buttons" mat-cell *matCellDef="let message">
-        <button mat-button class="button__delete" (click)="onDelete(message.messageId)">Удалить</button>
+        <button mat-button class="button__delete" (click)="delete(message.messageId, $event)">Удалить</button>
       </td>
     </ng-container>
     <tr mat-header-row *matHeaderRowDef="tableColumns"></tr>
-    <tr class="table-row" mat-row *matRowDef="let myRowData; columns: tableColumns"></tr>
+    <tr class="table-row" mat-row (click)="goToDetails(row)" *matRowDef="let row; columns: tableColumns"></tr>
   </table>
   <mat-paginator [pageSizeOptions]="[10, 25, 50]" showFirstLastButtons>
   </mat-paginator>

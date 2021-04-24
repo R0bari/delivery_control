@@ -6,6 +6,7 @@ import {DeliveryServicesService} from '../../../delivery-services/services/deliv
 import {MessagesService} from '../../services/messages.service';
 import {Message} from '../../models/Message';
 import {NotificationService} from '../../../shared/services/notification.service';
+import {AuthService} from '../../../auth/services/auth.service';
 
 @Component({
   selector: 'app-create-message-form',
@@ -24,49 +25,38 @@ export class CreateMessageFormComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder,
               private deliveryServicesService: DeliveryServicesService,
+              private authService: AuthService,
               private messagesService: MessagesService,
               private notificationService: NotificationService,
               private router: Router) {}
 
   ngOnInit(): void {
     this.form = this.createForm();
-    this.updateDeliveryServices();
+    this.updateDeliveryServicesSelectList();
   }
 
-  public onScheduledEnableChange(): void {
+  public changeScheduledEnable(): void {
     this.isScheduled = !this.isScheduled;
     if (!this.isScheduled) {
       this.form.get('scheduleDate').patchValue(null);
     }
   }
 
-  public onDeliveryServiceChosenEnableChange(): void {
+  public changeDeliveryServiceChosenEnable(): void {
     this.isDeliveryServiceChosen = !this.isDeliveryServiceChosen;
     if (!this.isDeliveryServiceChosen) {
       this.form.get('chosenDeliveryService').patchValue(null);
     }
   }
 
-  public onSubmit(): void {
+  public submit(): void {
     if (!this.form.valid) {
       alert('Не все поля заполнены корректно');
       return;
     }
     this.checkForm();
 
-    const message: Message = new Message(
-      this.form.get('theme')
-        .value,
-      this.form.get('body')
-        .value,
-      this.form.get('destinationEmail')
-        .value.toLowerCase(),
-      this.form.get('chosenDeliveryService')
-        .value,
-      this.isScheduled,
-      this.form.get('scheduleDate')
-        .value
-    );
+    const message: Message = this.createMessageFromForm();
 
     this.messagesService.insertMessage(message)
       .subscribe((response: any) => {
@@ -77,6 +67,23 @@ export class CreateMessageFormComponent implements OnInit {
         }
         this.notificationService.showError('Ошибка', 'Ошибка при создании письма');
       });
+  }
+
+  private createMessageFromForm(): Message {
+    return new Message(
+      this.form.get('theme')
+        .value,
+      this.form.get('body')
+        .value,
+      this.form.get('destinationEmail')
+        .value.toLowerCase(),
+      this.form.get('chosenDeliveryService')
+        .value,
+      this.isScheduled,
+      this.form.get('scheduleDate')
+        .value,
+      this.authService.currentUser.userId
+    );
   }
 
   private createForm(): FormGroup {
@@ -106,7 +113,7 @@ export class CreateMessageFormComponent implements OnInit {
     }
   }
 
-  public updateDeliveryServices(): void {
+  public updateDeliveryServicesSelectList(): void {
     this.deliveryServicesService
       .getDeliveryServices()
       .subscribe((response: any) => this.deliveryServices = response.data);

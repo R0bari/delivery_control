@@ -5,7 +5,7 @@ import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {MessagesService} from '../../services/messages.service';
 import {DeliveryStatuses} from '../../../delivery-services/models/DeliveryStatuses';
-import {NotificationService} from '../../../shared/services/notification.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-messages-table',
@@ -33,18 +33,20 @@ export class MessagesTableComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
 
   constructor(public messagesService: MessagesService,
-              private cdr: ChangeDetectorRef) {
+              private cdr: ChangeDetectorRef,
+              private router: Router) {
     this.dataSource = new MatTableDataSource([]);
     this.updateMessagesList();
   }
 
   ngOnInit(): void { }
 
-  onUpdate(): void {
+  update(): void {
     this.updateMessagesList();
   }
 
-  onDelete(messageId: number): void {
+  delete(messageId: number, event: any): void {
+    event.stopPropagation();
     this.messagesService.deleteMessage(messageId)
       .subscribe((response: any) => {
         if (response.isSuccess) {
@@ -57,7 +59,7 @@ export class MessagesTableComponent implements OnInit {
   }
 
   updateMessagesList(): void {
-    this.messagesService.getMessages()
+    this.messagesService.getMessagesList()
       .subscribe(async (response: any) => {
         if (response.isSuccess) {
           this.dataSource = new MatTableDataSource(response.data);
@@ -92,5 +94,9 @@ export class MessagesTableComponent implements OnInit {
 
   getDeliveryStatusString(message: Message): string {
     return this.deliveryStatuses[message.deliveryStatus];
+  }
+
+  goToDetails(row): void {
+    this.router.navigate(['/messages/details/' + row.messageId]);
   }
 }

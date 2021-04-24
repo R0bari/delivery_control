@@ -13,7 +13,7 @@
     <textarea formControlName="body" matInput appLineNowrap></textarea>
   </mat-form-field>
   <mat-checkbox class="htmlCheckbox" formControlName="htmlEnabled">HTML-письмо</mat-checkbox>
-  <mat-checkbox class="htmlCheckbox" (click)="onScheduledEnableChange()">Запланировать дату доставки</mat-checkbox>
+  <mat-checkbox class="htmlCheckbox" (click)="changeScheduledEnable()">Запланировать дату доставки</mat-checkbox>
   <div *ngIf="isScheduled">
     <mat-form-field appearance="outline" class="schedule-date">
       <mat-label>Запланированная дата отправки</mat-label>
@@ -23,7 +23,7 @@
       <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
   </div>
-  <mat-checkbox class="htmlCheckbox" (click)="onDeliveryServiceChosenEnableChange()">Выбрать сервис доставки вручную</mat-checkbox>
+  <mat-checkbox class="htmlCheckbox" (click)="changeDeliveryServiceChosenEnable()">Выбрать сервис доставки вручную</mat-checkbox>
   <div class="delivery-service-block" *ngIf="isDeliveryServiceChosen">
     <mat-form-field appearance="outline" class="delivery-service">
       <mat-label>Сервис доставки</mat-label>
@@ -34,8 +34,8 @@
       </mat-select>
     </mat-form-field>
     <mat-icon class="mat-icon-reload"
-              (click)="updateDeliveryServices()"
+              (click)="updateDeliveryServicesSelectList()"
               title="Обновить список сервисов">update</mat-icon>
   </div>
-  <button mat-raised-button class="button__system" (click)="onSubmit()">Создать</button>
+  <button mat-raised-button class="button__system" (click)="submit()">Создать</button>
 </form>
