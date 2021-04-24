@@ -14,7 +14,7 @@ export class MainHeadComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  onSignOut(): void {
+  signOut(): void {
     this.authService.signOut();
   }
 }

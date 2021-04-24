@@ -11,7 +11,7 @@ export class AppComponent {
   oneMinuteInMs = 100 * 60;
 
   constructor(private authService: AuthService) {
-    this.initAuthChecking();
+    // this.initAuthChecking();
   }
 
   private initAuthChecking(): void {
@@ -19,6 +19,11 @@ export class AppComponent {
   }
 
   private checkAuth(authService: AuthService): void {
-    authService.check();
+    authService.check()
+      .subscribe(response => {
+        if (!response.isSuccessful) {
+          console.log('LOG OUT');
+        }
+      });
   }
 }

@@ -15,24 +15,14 @@ export class ContactsService {
               private authService: AuthService) { }
 
   getContacts(): Observable<any> {
-    const headers = {Accept: 'application/json', Authorization: 'Bearer ' + this.authService.getToken()};
-    return this.http.get(
-      environment.defaultUrl + this.controllerUrl + 'list',
-      {headers});
+    return this.http.get(environment.defaultUrl + this.controllerUrl + 'user/' + this.authService.currentUser.userId);
   }
 
   deleteContact(id: number): Observable<any> {
-    const headers = {Accept: 'application/json', Authorization: 'Bearer ' + this.authService.getToken()};
-    return this.http.delete(
-      environment.defaultUrl + this.controllerUrl + id,
-      {headers});
+    return this.http.delete(environment.defaultUrl + this.controllerUrl + id);
   }
 
   insertContact(contact: Contact): Observable<any> {
-    const headers = {Accept: 'application/json', Authorization: 'Bearer ' + this.authService.getToken()};
-    return this.http.post(
-      environment.defaultUrl + this.controllerUrl,
-      contact,
-      {headers});
+    return this.http.post(environment.defaultUrl + this.controllerUrl, contact);
   }
 }

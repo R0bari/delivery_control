@@ -19,16 +19,15 @@ export class CreateContactDialogComponent implements OnInit {
     this.form = this.createForm();
   }
 
-  onSubmit(): void {
+  submit(): void {
     if (this.form.valid) {
       this.dialogRef.close(this.form);
-      this.notificationService.showSuccess('Успешное создание контакта', 'Контакт успешно создан');
       return;
     }
     this.notificationService.showError('Ошибка', 'Ошибка при создании контакта');
   }
 
-  onClose(): void {
+  close(): void {
     this.dialogRef.close(false);
   }
 

@@ -12,27 +12,26 @@ export class MessagesService {
   controllerUrl = 'messages/';
 
   constructor(private http: HttpClient,
-              private authService: AuthService) { }
+              private authService: AuthService) {
+  }
 
-  getMessages(): Observable<any> {
-    const headers = {Accept: 'application/json', Authorization: 'Bearer ' + this.authService.getToken()};
+  getMessagesList(): Observable<any> {
     return this.http.get(
-      environment.defaultUrl + this.controllerUrl + 'list',
-      {headers});
+      environment.defaultUrl + this.controllerUrl + 'user/' + this.authService.currentUser?.userId);
+  }
+
+  getMessage(messageId: number): Observable<any> {
+    return this.http.get(
+      environment.defaultUrl + this.controllerUrl + messageId
+    );
   }
 
   deleteMessage(id: number): Observable<any> {
-    const headers = {Accept: 'application/json', Authorization: 'Bearer ' + this.authService.getToken()};
-    return this.http.delete(
-      environment.defaultUrl + this.controllerUrl + id,
-      {headers});
+    return this.http.delete(environment.defaultUrl + this.controllerUrl + id);
   }
 
   insertMessage(message: Message): Observable<any> {
-    const headers = {Accept: 'application/json', Authorization: 'Bearer ' + this.authService.getToken()};
     return this.http.post(
-      environment.defaultUrl + this.controllerUrl,
-      message,
-      {headers});
+      environment.defaultUrl + this.controllerUrl, message);
   }
 }

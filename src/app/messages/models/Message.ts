@@ -17,14 +17,15 @@ export class Message {
   chosenDeliveryServiceId: number;
   usedDeliveryServiceId: number = null;
   deliveryStatus: DeliveryStatuses = 0;
-  userId = 4;
+  userId;
 
   constructor(theme: string,
               body: string,
               destinationEmail: string,
               chosenDeliveryService: DeliveryService,
               isScheduled: boolean,
-              scheduleDate: any) {
+              scheduleDate: any,
+              userId: any) {
     this.theme = theme;
     this.body = body;
     this.destinationEmail = destinationEmail;
@@ -33,5 +34,6 @@ export class Message {
     this.scheduleDate = scheduleDate;
     this.chosenDeliveryServiceId = chosenDeliveryService.deliveryServiceId;
     this.deliveryStatus = DeliveryStatuses.awaiting;
+    this.userId = userId;
   }
 }

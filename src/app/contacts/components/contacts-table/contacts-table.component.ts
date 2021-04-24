@@ -7,6 +7,7 @@ import {Contact} from '../../models/Contact';
 import {ContactsService} from '../../services/contacts.service';
 import {CreateContactDialogComponent} from '../create-contact-form/create-contact-dialog.component';
 import {NotificationService} from '../../../shared/services/notification.service';
+import {AuthService} from '../../../auth/services/auth.service';
 
 @Component({
   selector: 'app-contacts-table',
@@ -21,7 +22,9 @@ export class ContactsTableComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
 
   constructor(private contactsService: ContactsService,
+              private authService: AuthService,
               private cdr: ChangeDetectorRef,
+              private notificationService: NotificationService,
               public dialog: MatDialog) {
     this.updateContacts();
   }
@@ -29,7 +32,7 @@ export class ContactsTableComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  onAdd(): void {
+  add(): void {
     this.dialog.open(CreateContactDialogComponent, {
       width: '350px'
     }).afterClosed().subscribe(result => {
@@ -38,23 +41,24 @@ export class ContactsTableComponent implements OnInit {
           contactId: null,
           contactName: result.get('contactName').value,
           contactEmail: result.get('contactEmail').value,
-          userId: 4 // TODO: after implementation auth: currentUserId
+          userId: this.authService.currentUser.userId
         };
         this.contactsService.insertContact(contact)
           .subscribe((response: any) => {
             if (response.isSuccess) {
               this.updateContacts();
+              this.notificationService.showSuccess('Успешное создание контакта', 'Контакт успешно создан');
             }
           });
       }
     });
   }
 
-  onUpdate(): void {
+  update(): void {
     this.updateContacts();
   }
 
-  onDelete(contactId: number): void {
+  delete(contactId: number): void {
     this.contactsService.deleteContact(contactId)
       .subscribe((response: any) => {
         if (response.isSuccess) {

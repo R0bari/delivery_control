@@ -15,9 +15,6 @@ export class DeliveryServicesService {
               private authService: AuthService) { }
 
   getDeliveryServices(): Observable<any> {
-    const headers = {Accept: 'application/json', Authorization: 'Bearer ' + this.authService.getToken()};
-    return this.http.get(
-      environment.defaultUrl + this.controllerUrl + 'list',
-      {headers});
+    return this.http.get(environment.defaultUrl + this.controllerUrl + 'list');
   }
 }

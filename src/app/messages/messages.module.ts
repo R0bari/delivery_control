@@ -8,7 +8,7 @@ import {MatTableModule} from '@angular/material/table';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatButtonModule} from '@angular/material/button';
 import {MatSortModule} from '@angular/material/sort';
-import { CreateMessageFormComponent } from './components/create-message-form/create-message-form.component';
+import {CreateMessageFormComponent} from './components/create-message-form/create-message-form.component';
 import {MatIconModule} from '@angular/material/icon';
 import {MatNativeDateModule} from '@angular/material/core';
 import {MatDatepickerModule} from '@angular/material/datepicker';
@@ -17,9 +17,10 @@ import {MatInputModule} from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {ReactiveFormsModule} from '@angular/forms';
+import {MessageDetailsComponent} from './components/message-details/message-details.component';
 
 @NgModule({
-  declarations: [MessagesPageComponent, MessagesTableComponent, CreateMessageFormComponent],
+  declarations: [MessagesPageComponent, MessagesTableComponent, CreateMessageFormComponent, MessageDetailsComponent],
   imports: [
     CommonModule,
     MessagesRoutingModule,

@@ -31,7 +31,7 @@ export class AuthPageComponent implements OnInit {
       });
   }
 
-  onSignIn(): void {
+  signIn(): void {
     const user: User = new User(
       this.form.get('email').value,
       this.form.get('password').value
@@ -46,7 +46,7 @@ export class AuthPageComponent implements OnInit {
 
   private handleSignInResponse(response: any): void {
     if (response.isSuccess) {
-      this.authService.writeAuthInfoToLocalStorage(response);
+      this.authService.writeAuthInfo(response);
       this.router.navigate(['/']).then(() =>
         this.notificationService.showSuccess('Успешная авторизация', 'Авторизация завершена успешно')
       );

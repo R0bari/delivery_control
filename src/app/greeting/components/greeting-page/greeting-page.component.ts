@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AuthService} from '../../../auth/services/auth.service';
 
 @Component({
@@ -10,10 +10,15 @@ export class GreetingPageComponent implements OnInit {
 
   constructor(private authService: AuthService) {
     //  Для проверки авторизованного пользователя
-    this.authService.check();
+    this.authService.check()
+      .subscribe(response => {
+        if (!response.successful) {
+          console.log('AUTH CHECK: unauthorized');
+        }
+      });
   }
 
   ngOnInit(): void {
-  }
 
+  }
 }

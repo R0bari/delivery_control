@@ -12,7 +12,6 @@ import {NotificationService} from '../../../shared/services/notification.service
 })
 export class RegPageComponent implements OnInit {
   form: FormGroup;
-  tokenKey = 'jwt';
 
   constructor(private formBuilder: FormBuilder,
               private authService: AuthService,
@@ -33,13 +32,14 @@ export class RegPageComponent implements OnInit {
       });
   }
 
-  onSignUp(): void {
+  signUp(): void {
     const user: User = {
       userName: this.form.get('name').value,
       userSecondName: this.form.get('secondName').value,
       email: this.form.get('email').value,
       password: this.form.get('password').value,
-      role: 0
+      role: 0,
+      userId: null
     };
     this.authService.signUp(user)
       .subscribe(response => this.handleSignUpResponse(response));
@@ -51,7 +51,7 @@ export class RegPageComponent implements OnInit {
 
   private handleSignUpResponse(response: any): void {
     if (response.isSuccess) {
-      this.authService.writeAuthInfoToLocalStorage(response);
+      this.authService.writeAuthInfo(response);
       this.router.navigate(['/']).then(() =>
         this.notificationService.showSuccess('Успешная регистрация', 'Регистрация завершена успешно')
       );
