@@ -1,18 +1,17 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {environment} from '../../../environments/environment';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {User} from '../models/User';
 import {Router} from '@angular/router';
-import {NotificationService} from '../../shared/services/notification.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   controllerUrl = 'auth/';
-  tokenKey = 'jwt';
-  userKey = 'user';
+  tokenKey = 'delivery-control-jwt';
+  userKey = 'delivery-control-user';
 
   constructor(private http: HttpClient,
               private router: Router) { }
