@@ -8,12 +8,10 @@ import {AppRoutingModule} from './app-routing.module';
 import {SharedModule} from './shared/shared.module';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
-import {CardComponent} from './shared/card/card.component';
 import {LayoutGuestComponent} from './layout/layout-guest/layout-guest.component';
 import {ToastrModule} from 'ngx-toastr';
-import {ContactsService} from './contacts/services/contacts.service';
 import {AuthInterceptor} from './auth/auth.interceptor';
-import {MessagesService} from './messages/services/messages.service';
+import {MatIconModule} from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -26,6 +24,7 @@ import {MessagesService} from './messages/services/messages.service';
     BrowserAnimationsModule,
     RouterModule,
     AppRoutingModule,
+    MatIconModule,
     SharedModule,
     HttpClientModule,
     ToastrModule.forRoot()

@@ -4,9 +4,9 @@ import {MainMenuComponent} from './main-menu/main-menu.component';
 import {MainHeadComponent} from './main-head/main-head.component';
 import {RouterModule} from '@angular/router';
 import {TableHeaderComponent} from './table-header/table-header.component';
-import { CardComponent } from './card/card.component';
-import { LayoutGuestComponent } from '../layout/layout-guest/layout-guest.component';
+import {CardComponent} from './card/card.component';
 import {MatButtonModule} from '@angular/material/button';
+import {MatIconModule} from '@angular/material/icon';
 
 @NgModule({
   declarations: [MainMenuComponent, MainHeadComponent, TableHeaderComponent, CardComponent],
@@ -19,7 +19,8 @@ import {MatButtonModule} from '@angular/material/button';
     imports: [
         CommonModule,
         RouterModule,
-        MatButtonModule
+        MatButtonModule,
+        MatIconModule
     ]
 })
 export class SharedModule {

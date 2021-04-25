@@ -1,6 +1,7 @@
 <div class="head-container">
-  <h3 class="head-title" routerLink="/">{{title}}</h3>
+  <h3 routerLink="/">{{title}}</h3>
   <div class="head-exit" routerLink="/guest/auth" (click)="signOut()">
     <button mat-raised-button>Выйти</button>
   </div>
+  <div class="user-info"><mat-icon>person</mat-icon> {{currentUserEmail || ''}}</div>
 </div>
