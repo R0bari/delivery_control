@@ -1,9 +1,11 @@
+@import "../../shared/styles/colors";
+
 .head-container {
   position: fixed;
   width: 100%;
   top: 0;
   height: 67px;
-  background-color: #34495e;
+  background-color: $dark-blue-color;
   color: #ffffff;
 
   div {
@@ -18,7 +20,7 @@
     text-align: center;
     box-sizing: border-box;
     padding: 22px 15px;
-    background-color: #1F98AD;
+    background-color: $blue-color;
 
     width: 240px;
     font-family: -apple-system, Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;

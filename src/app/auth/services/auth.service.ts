@@ -1,9 +1,8 @@
 import {Injectable} from '@angular/core';
 import {environment} from '../../../environments/environment';
 import {HttpClient} from '@angular/common/http';
-import {Observable, throwError} from 'rxjs';
+import {Observable} from 'rxjs';
 import {User} from '../models/User';
-import {Router} from '@angular/router';
 import {catchError} from 'rxjs/operators';
 
 @Injectable({
@@ -15,7 +14,6 @@ export class AuthService {
   userKey = 'delivery-control-user';
   currentUser: User;
   jwt: string;
-  private jwtPrefix = 'Bearer ';
 
   constructor(private http: HttpClient) {
     this.currentUser = JSON.parse(localStorage.getItem(this.userKey));
@@ -44,7 +42,7 @@ export class AuthService {
 
   writeAuthInfo(response: any): void {
     if (response.isSuccess && response.data != null) {
-      this.jwt = this.jwtPrefix + response.data.token;
+      this.jwt = response.data.token;
       this.currentUser = response.data.user;
       localStorage.setItem(this.tokenKey, this.jwt);
       localStorage.setItem(this.userKey, JSON.stringify(this.currentUser));
