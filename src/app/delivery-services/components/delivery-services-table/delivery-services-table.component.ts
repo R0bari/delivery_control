@@ -8,14 +8,14 @@ import {DeliveryServicesService} from '../../services/delivery-services.service'
   styleUrls: ['./delivery-services-table.component.scss']
 })
 export class DeliveryServicesTableComponent implements OnInit {
-  deliveryServices: DeliveryService[] = [];
   tableColumns = ['deliveryServiceLogo', 'deliveryServiceName', 'standartPriority'];
 
-  constructor(public deliveryServicesService: DeliveryServicesService) {
+  deliveryServices: DeliveryService[] = [];
+
+  constructor(private deliveryServicesService: DeliveryServicesService) {
   }
 
   ngOnInit(): void {
-    this.deliveryServicesService.getDeliveryServices()
-      .subscribe((response: any) => this.deliveryServices = response.data);
+    this.deliveryServices = this.deliveryServicesService.getDeliveryServices();
   }
 }

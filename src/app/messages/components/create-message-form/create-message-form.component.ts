@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {DeliveryService} from '../../../delivery-services/models/DeliveryService';
@@ -82,7 +82,9 @@ export class CreateMessageFormComponent implements OnInit {
       this.isScheduled,
       this.form.get('scheduleDate')
         .value,
-      this.authService.currentUser.userId
+      this.authService.currentUser.userId,
+      this.form.get('isHtml')
+        .value
     );
   }
 
@@ -91,7 +93,7 @@ export class CreateMessageFormComponent implements OnInit {
       .group({
         theme: [null],
         body: [null],
-        htmlEnabled: [null],
+        isHtml: [false],
         destinationEmail: [null, Validators.required],
         chosenDeliveryService: [null],
         scheduleDate: [null]
@@ -105,8 +107,8 @@ export class CreateMessageFormComponent implements OnInit {
     if (!this.form.value.body) {
       this.form.get('body').patchValue('Без текста');
     }
-    if (!this.form.value.htmlEnabled) {
-      this.form.get('htmlEnabled').patchValue(false);
+    if (!this.form.value.isHtml) {
+      this.form.get('isHtml').patchValue(false);
     }
     if (!this.form.value.chosenDeliveryService) {
       this.form.get('chosenDeliveryService').patchValue(this.deliveryServices[0]);
@@ -114,9 +116,7 @@ export class CreateMessageFormComponent implements OnInit {
   }
 
   public updateDeliveryServicesSelectList(): void {
-    this.deliveryServicesService
-      .getDeliveryServices()
-      .subscribe((response: any) => this.deliveryServices = response.data);
+    this.deliveryServices = this.deliveryServicesService.getDeliveryServices();
   }
 
 }

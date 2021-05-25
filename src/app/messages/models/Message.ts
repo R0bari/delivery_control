@@ -4,14 +4,15 @@ import {DeliveryService} from '../../delivery-services/models/DeliveryService';
 export class Message {
   messageId: number;
   attachedFiles: any = null;
-  theme: string;
-  body: string;
+  theme = '';
+  body = '';
   destinationDate: Date = null;
   destinationEmail: string;
   size = 0;
-  isScheduled: boolean;
+  isHtml = false;
+  isScheduled = false;
   scheduleDate: Date = null;
-  isSent: boolean;
+  isSent = false;
   deliveryQueueId: any = 2;
   chosenDeliveryService: DeliveryService = null;
   chosenDeliveryServiceId: number;
@@ -25,7 +26,8 @@ export class Message {
               chosenDeliveryService: DeliveryService,
               isScheduled: boolean,
               scheduleDate: any,
-              userId: any) {
+              userId: any,
+              isHtml: boolean) {
     this.theme = theme;
     this.body = body;
     this.destinationEmail = destinationEmail;
@@ -35,5 +37,6 @@ export class Message {
     this.chosenDeliveryServiceId = chosenDeliveryService.deliveryServiceId;
     this.deliveryStatus = DeliveryStatuses.awaiting;
     this.userId = userId;
+    this.isHtml = isHtml;
   }
 }

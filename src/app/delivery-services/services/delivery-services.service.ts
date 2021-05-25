@@ -1,20 +1,20 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { environment } from 'src/environments/environment';
-import {Observable} from 'rxjs';
-import {AuthService} from '../../auth/services/auth.service';
+import {Injectable} from '@angular/core';
+import {DeliveryService} from '../models/DeliveryService';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class DeliveryServicesService {
-  controllerUrl = 'services/';
 
-  constructor(private http: HttpClient,
-              private authService: AuthService) { }
+  deliveryServices = [
+    new DeliveryService('AmazonSES', 0),
+    new DeliveryService('SendGrid', 1)
+  ];
 
-  getDeliveryServices(): Observable<any> {
-    return this.http.get(environment.defaultUrl + this.controllerUrl + 'list');
+  constructor() { }
+
+  getDeliveryServices(): DeliveryService[] {
+    return this.deliveryServices;
   }
 }

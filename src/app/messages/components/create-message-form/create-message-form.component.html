@@ -12,7 +12,7 @@
     <mat-label>Текст</mat-label>
     <textarea formControlName="body" matInput appLineNowrap></textarea>
   </mat-form-field>
-  <mat-checkbox class="htmlCheckbox" formControlName="htmlEnabled">HTML-письмо</mat-checkbox>
+  <mat-checkbox class="htmlCheckbox" formControlName="isHtml">HTML-письмо</mat-checkbox>
   <mat-checkbox class="htmlCheckbox" (click)="changeScheduledEnable()">Запланировать дату доставки</mat-checkbox>
   <div *ngIf="isScheduled">
     <mat-form-field appearance="outline" class="schedule-date">
