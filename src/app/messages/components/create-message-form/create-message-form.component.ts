@@ -8,6 +8,7 @@ import {Message} from '../../models/Message';
 import {NotificationService} from '../../../shared/services/notification.service';
 import {AuthService} from '../../../auth/services/auth.service';
 import {AttachedFile} from '../../models/AttachedFile';
+import {Utils} from '../../../shared/Utils';
 
 @Component({
   selector: 'app-create-message-form',
@@ -113,26 +114,11 @@ export class CreateMessageFormComponent implements OnInit {
     this.deliveryServices = this.deliveryServicesService.getDeliveryServices();
   }
 
-  addFile(event): void {
-    const file = event.target.files[0];
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = () => {
-      console.log(event);
-      console.log(reader.result);
-      const fileType = this.parseFileData(reader.result as string);
-      const content = this.parseFileContent(reader.result as string);
-      console.log({fileType, content});
-    };
+  async addFile(event): Promise<void> {
+    const file = await Utils.formAttachedFile(event.target.files[0]);
+    this.files.push(file);
   }
 
-  private parseFileData(result: string): string {
-    return result.substring(0, result.indexOf(';'));
-  }
-
-  private parseFileContent(result: string): string {
-    return result.substring(result.indexOf(',') + 1);
-  }
 
   removeFile(id: number): void {
     const index = this.files.findIndex(f => f.id === id);

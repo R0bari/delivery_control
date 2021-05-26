@@ -49,19 +49,27 @@
     float: left;
     vertical-align: top;
     text-align: center;
-    width: 130px;
-    margin: 15px 15px 15px 0;
+    width: 420px;
     line-height: 25px;
+    margin-top: 10px;
     box-sizing: border-box;
     border-radius: 5px;
-    background-color: #cbeaf0;
+    box-shadow: 3px 0 7px rgb(0 0 0 / 20%);
 
     &__file {
-      display: block;
-      margin: 0 auto;
+      display: inline-block;
+      float: left;
+      margin: 10px 0 10px 10px;
       font-size: 65px;
       width: 65px;
       height: 60px;
+    }
+
+    &__description {
+      display: inline-block;
+      width: 300px;
+      height: 40px;
+      margin: 20px 0;
     }
 
     &__close {

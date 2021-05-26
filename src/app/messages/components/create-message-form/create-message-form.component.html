@@ -46,11 +46,12 @@
       <span>Добавить файл</span>
       <input #fileInput type="file" (change)="addFile($event)" style="display:none;" />
     </a>
-<!--    <a mat-button class="files__add" (click)="addFile()">Добавить файл</a>-->
     <div class="files__block" *ngFor="let file of files; let i = index">
       <mat-icon class="files__block__close" (click)="removeFile(file.id)">close</mat-icon>
       <mat-icon class="files__block__file">insert_drive_file</mat-icon>
-      <span class="files__block__title">Файл {{file.id}}</span>
+      <div class="files__block__description">
+        <span class="files__block__title">{{file.title}}</span>
+      </div>
     </div>
   </div>
 
