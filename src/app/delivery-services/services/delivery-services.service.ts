@@ -8,8 +8,9 @@ import {DeliveryService} from '../models/DeliveryService';
 export class DeliveryServicesService {
 
   deliveryServices = [
-    new DeliveryService('AmazonSES', 0),
-    new DeliveryService('SendGrid', 1)
+    new DeliveryService('SMTP', 0),
+    new DeliveryService('AmazonSES', 1),
+    new DeliveryService('SendGrid', 2)
   ];
 
   constructor() { }

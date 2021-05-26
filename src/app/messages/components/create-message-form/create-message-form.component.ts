@@ -7,6 +7,7 @@ import {MessagesService} from '../../services/messages.service';
 import {Message} from '../../models/Message';
 import {NotificationService} from '../../../shared/services/notification.service';
 import {AuthService} from '../../../auth/services/auth.service';
+import {AttachedFile} from '../../models/AttachedFile';
 
 @Component({
   selector: 'app-create-message-form',
@@ -21,7 +22,7 @@ export class CreateMessageFormComponent implements OnInit {
   minScheduleDate: Date = new Date();
   maxScheduleDate: Date = new Date('2031/01/01');
   isHtml = false;
-  isDeliveryServiceChosen = false;
+  files: AttachedFile[] = [];
 
   constructor(private formBuilder: FormBuilder,
               private deliveryServicesService: DeliveryServicesService,
@@ -39,13 +40,6 @@ export class CreateMessageFormComponent implements OnInit {
     this.isScheduled = !this.isScheduled;
     if (!this.isScheduled) {
       this.form.get('scheduleDate').patchValue(null);
-    }
-  }
-
-  public changeDeliveryServiceChosenEnable(): void {
-    this.isDeliveryServiceChosen = !this.isDeliveryServiceChosen;
-    if (!this.isDeliveryServiceChosen) {
-      this.form.get('chosenDeliveryService').patchValue(null);
     }
   }
 
@@ -119,4 +113,29 @@ export class CreateMessageFormComponent implements OnInit {
     this.deliveryServices = this.deliveryServicesService.getDeliveryServices();
   }
 
+  addFile(event): void {
+    const file = event.target.files[0];
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => {
+      console.log(event);
+      console.log(reader.result);
+      const fileType = this.parseFileData(reader.result as string);
+      const content = this.parseFileContent(reader.result as string);
+      console.log({fileType, content});
+    };
+  }
+
+  private parseFileData(result: string): string {
+    return result.substring(0, result.indexOf(';'));
+  }
+
+  private parseFileContent(result: string): string {
+    return result.substring(result.indexOf(',') + 1);
+  }
+
+  removeFile(id: number): void {
+    const index = this.files.findIndex(f => f.id === id);
+    this.files.splice(index, 1);
+  }
 }
