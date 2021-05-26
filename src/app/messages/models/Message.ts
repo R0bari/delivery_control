@@ -1,5 +1,6 @@
 import {DeliveryStatuses} from '../../delivery-services/models/DeliveryStatuses';
 import {DeliveryService} from '../../delivery-services/models/DeliveryService';
+import {AttachedFile} from './AttachedFile';
 
 export class Message {
   messageId: number;
@@ -19,6 +20,7 @@ export class Message {
   usedDeliveryServiceId: number = null;
   deliveryStatus: DeliveryStatuses = 0;
   userId;
+  attachments: AttachedFile[] = [];
 
   constructor(theme: string,
               body: string,
@@ -38,5 +40,13 @@ export class Message {
     this.deliveryStatus = DeliveryStatuses.awaiting;
     this.userId = userId;
     this.isHtml = isHtml;
+  }
+
+  addAttachments(files: AttachedFile[]): void {
+    files.forEach(file => this.addAttachment(file));
+  }
+
+  addAttachment(file: AttachedFile): void {
+    this.attachments.push(file);
   }
 }
