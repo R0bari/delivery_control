@@ -4,7 +4,7 @@ import {AttachedFile} from './AttachedFile';
 
 export class Message {
   messageId: number;
-  attachedFiles: any = null;
+  attachedFiles: AttachedFile[] = [];
   theme = '';
   body = '';
   destinationDate: Date = null;
@@ -20,7 +20,6 @@ export class Message {
   usedDeliveryServiceId: number = null;
   deliveryStatus: DeliveryStatuses = 0;
   userId;
-  attachments: AttachedFile[] = [];
 
   constructor(theme: string,
               body: string,
@@ -47,6 +46,6 @@ export class Message {
   }
 
   addAttachment(file: AttachedFile): void {
-    this.attachments.push(file);
+    this.attachedFiles.push(file);
   }
 }

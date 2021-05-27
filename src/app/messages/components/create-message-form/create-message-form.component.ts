@@ -8,7 +8,7 @@ import {Message} from '../../models/Message';
 import {NotificationService} from '../../../shared/services/notification.service';
 import {AuthService} from '../../../auth/services/auth.service';
 import {AttachedFile} from '../../models/AttachedFile';
-import {Utils} from '../../../shared/Utils';
+import {FilesService} from '../../../shared/services/files.service';
 
 @Component({
   selector: 'app-create-message-form',
@@ -30,6 +30,7 @@ export class CreateMessageFormComponent implements OnInit {
               private authService: AuthService,
               private messagesService: MessagesService,
               private notificationService: NotificationService,
+              private filesService: FilesService,
               private router: Router) {}
 
   ngOnInit(): void {
@@ -44,7 +45,7 @@ export class CreateMessageFormComponent implements OnInit {
     }
   }
 
-  public submit(): void {
+  public async onSubmit(): Promise<void> {
     if (!this.form.valid) {
       alert('Не все поля заполнены корректно');
       return;
@@ -52,12 +53,14 @@ export class CreateMessageFormComponent implements OnInit {
     this.checkForm();
 
     const message: Message = this.createMessageFromForm();
+    message.addAttachments(this.filesService.files);
 
     this.messagesService.insertMessage(message)
       .subscribe((response: any) => {
         if (response.isSuccess) {
           this.router.navigate(['/messages']).then(() =>
             this.notificationService.showSuccess('Письмо создано', 'Письмо успешно создано'));
+          this.filesService.clearFiles();
           return;
         }
         this.notificationService.showError('Ошибка', 'Ошибка при создании письма');
@@ -114,13 +117,15 @@ export class CreateMessageFormComponent implements OnInit {
     this.deliveryServices = this.deliveryServicesService.getDeliveryServices();
   }
 
-  async addFile(event): Promise<void> {
-    const file = await Utils.formAttachedFile(event.target.files[0]);
-    this.files.push(file);
+  async onAddFile(event): Promise<void> {
+    const files = event.target.files;
+    if (files.length > 0) {
+      this.filesService.addFile(files[0]);
+    }
   }
 
 
-  removeFile(id: number): void {
+  onRemoveFile(id: number): void {
     const index = this.files.findIndex(f => f.id === id);
     this.files.splice(index, 1);
   }

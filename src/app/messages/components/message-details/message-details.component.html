@@ -11,5 +11,13 @@
     <span class="message-theme">{{message?.theme || 'Тема письма'}}</span></div>
   <div class="body-title">Сообщение</div>
   <p class="body">{{message?.body || 'Текст сообщения'}}</p>
-  <h3>Файлы</h3>
+  <div class="files">
+    <h3 class="files__title">Файлы</h3>
+    <div class="files__block" *ngFor="let file of message?.attachedFiles; let i = index" (click)="onDownload(file)">
+      <mat-icon class="files__block__file">insert_drive_file</mat-icon>
+      <div class="files__block__description">
+        <span class="files__block__title">{{file.title}}</span>
+      </div>
+    </div>
+  </div>
 </div>

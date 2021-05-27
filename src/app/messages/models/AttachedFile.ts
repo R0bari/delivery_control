@@ -1,6 +1,6 @@
 export class AttachedFile {
-  id = -1;
-  messageId = -1;
+  id: number;
+  messageId: number;
   title = '';
   base64Content = '';
   fileType = '';
