@@ -24,13 +24,14 @@ export class CreateMessageFormComponent implements OnInit {
   maxScheduleDate: Date = new Date('2031/01/01');
   isHtml = false;
   files: AttachedFile[] = [];
+  destinationEmails: string[] = [];
 
-  constructor(private formBuilder: FormBuilder,
+  constructor(public filesService: FilesService,
+              private formBuilder: FormBuilder,
               private deliveryServicesService: DeliveryServicesService,
               private authService: AuthService,
               private messagesService: MessagesService,
               private notificationService: NotificationService,
-              private filesService: FilesService,
               private router: Router) {}
 
   ngOnInit(): void {
@@ -124,9 +125,7 @@ export class CreateMessageFormComponent implements OnInit {
     }
   }
 
-
   onRemoveFile(id: number): void {
-    const index = this.files.findIndex(f => f.id === id);
-    this.files.splice(index, 1);
+    this.filesService.deleteSelectedFile(id);
   }
 }

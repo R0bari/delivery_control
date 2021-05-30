@@ -1,5 +1,5 @@
 export enum DeliveryStatuses {
-  awaiting = 0,
-  successful = 1,
+  successful = 0,
+  awaiting = 1,
   failed = 2,
-};
+}

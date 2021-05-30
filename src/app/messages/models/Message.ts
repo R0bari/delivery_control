@@ -9,6 +9,7 @@ export class Message {
   body = '';
   destinationDate: Date = null;
   destinationEmail: string;
+  destinationEmails: string[] = [];
   size = 0;
   isHtml = false;
   isScheduled = false;

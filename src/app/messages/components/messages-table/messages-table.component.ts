@@ -24,10 +24,11 @@ export class MessagesTableComponent implements OnInit {
     'buttons'];
   dataSource: MatTableDataSource<Message>;
   deliveryStatuses: any = {
-    0: 'Ожидает',
-    1: 'Доставлено',
+    0: 'Доставлено',
+    1: 'Ожидает',
     2: 'Не доставлено'
   };
+  updateIntervalInMs = 10 * 1000;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -37,6 +38,7 @@ export class MessagesTableComponent implements OnInit {
               private router: Router) {
     this.dataSource = new MatTableDataSource([]);
     this.updateMessagesList();
+    setInterval(() => this.updateMessagesList(), this.updateIntervalInMs);
   }
 
   ngOnInit(): void { }

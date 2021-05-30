@@ -46,7 +46,7 @@
       <span>Добавить файл</span>
       <input #fileInput type="file" (change)="onAddFile($event)" style="display:none;" />
     </a>
-    <div class="files__block" *ngFor="let file of files; let i = index">
+    <div class="files__block" *ngFor="let file of filesService.files; let i = index">
       <mat-icon class="files__block__close" (click)="onRemoveFile(file.id)">close</mat-icon>
       <mat-icon class="files__block__file">insert_drive_file</mat-icon>
       <div class="files__block__description">

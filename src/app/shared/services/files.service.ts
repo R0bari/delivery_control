@@ -83,4 +83,8 @@ export class FilesService {
     link.click();
   }
 
+  public deleteSelectedFile(id: number): void {
+    const index = this.files.findIndex(f => f.id === id);
+    this.files.splice(index, 1);
+  }
 }
