@@ -2,27 +2,33 @@
 
 .destination {
   text-align: left;
+  padding-bottom: 55px;
 
   mat-form-field {
     display: inline-block;
     vertical-align: top;
   }
 
-  .mat-icon-reload {
-    margin-left: 10px;
-    line-height: 55px;
-    cursor: pointer;
-  }
 
-  &__input {
-    width: 525px;
-    margin-right: 15px;
+  &__email {
+    display: inline-block;
+    width: 550px;
+
+    &__title {
+      width: 500px;
+    }
+
+    mat-icon {
+      color: #db4120;
+      cursor: pointer;
+      height: 15px;
+      margin: 15px 5px;
+    }
   }
 
   &__service {
     float: right;
     display: inline-block;
-    width: 250px;
 
     &__field {
       width: 210px;
@@ -30,6 +36,13 @@
 
     mat-icon {
       float: right;
+    }
+  }
+
+  &__add {
+    &__button {
+      display: block;
+      float: left;
     }
   }
 }
@@ -107,7 +120,7 @@ mat-checkbox {
   margin: 0 1.34375em 1.34375em 0;
 }
 
-.button__system, .system-button {
+.create-message {
   float: right;
 }
 

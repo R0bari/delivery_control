@@ -5,7 +5,7 @@
   </h3>
   <div class="destination">
     <span class="description">Кому:</span>
-    <span class="destination-email"><mat-icon>person</mat-icon>{{message?.destinationEmail || 'Почта получателя'}}</span></div>
+    <span class="destination-email" *ngFor="let destinationEmail of message.destinationEmails"><mat-icon>person</mat-icon>{{destinationEmail.email || 'Почта получателя'}}</span></div>
   <div class="theme">
     <span class="description">Тема:</span>
     <span class="message-theme">{{message?.theme || 'Тема письма'}}</span></div>

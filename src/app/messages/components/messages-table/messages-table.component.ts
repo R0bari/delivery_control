@@ -15,7 +15,7 @@ import {Router} from '@angular/router';
 })
 export class MessagesTableComponent implements OnInit {
   tableColumns = [
-    'destinationEmail',
+    'destinationEmails',
     'theme',
     'scheduleDate',
     'chosenDeliveryServiceId',
@@ -100,5 +100,9 @@ export class MessagesTableComponent implements OnInit {
 
   goToDetails(row): void {
     this.router.navigate(['/messages/details/' + row.messageId]);
+  }
+
+  joinDestinationEmail(destinationEmails: any): string {
+    return destinationEmails.map(de => de.email).join('\n');
   }
 }

@@ -1,9 +1,9 @@
 <div class="table-container">
   <table mat-table matSort [dataSource]="dataSource">
-    <ng-container matColumnDef="destinationEmail">
+    <ng-container matColumnDef="destinationEmails">
       <th class="table-header" mat-header-cell mat-sort-header *matHeaderCellDef>Кому</th>
       <td class="table-cell" mat-cell *matCellDef="let message">
-          {{message.destinationEmail}}
+          {{joinDestinationEmail(message.destinationEmails)}}
       </td>
     </ng-container>
     <ng-container matColumnDef="theme">

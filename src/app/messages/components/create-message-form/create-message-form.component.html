@@ -1,10 +1,23 @@
 <app-table-header title="Новое сообщение"></app-table-header>
 <form [formGroup]="form">
   <div class="destination">
-    <mat-form-field appearance="outline" class="destination__input">
-      <mat-label>Кому</mat-label>
-      <input matInput formControlName="destinationEmail">
-    </mat-form-field>
+    <ng-container formArrayName="destinationEmails">
+      <div class="destination__email">
+        <ng-container *ngFor="let destinationEmail of destinationEmails.controls; let i = index">
+          <div [formGroup]="destinationEmail">
+            <mat-form-field appearance="outline" class="destination__email__title">
+              <input matInput
+                     formControlName="title"
+                     placeholder="Кому">
+            </mat-form-field>
+            <mat-icon *ngIf="i > 0" class="delete-btn"
+                      (click)="onDeleteDestination(i)">
+              delete_forever</mat-icon>
+          </div>
+        </ng-container>
+      </div>
+
+    </ng-container>
     <div class="destination__service">
       <mat-form-field appearance="outline" class="destination__service__field">
         <mat-label>Сервис доставки</mat-label>
@@ -14,13 +27,15 @@
           </mat-option>
         </mat-select>
       </mat-form-field>
-      <mat-icon class="mat-icon-reload"
-                (click)="updateDeliveryServicesSelectList()"
-                title="Обновить список сервисов">update
-      </mat-icon>
     </div>
-
+    <div class="destination__add">
+      <button mat-raised-button class="destination__add__button" (click)="onAddDestination()">
+        Добавить получателя
+      </button>
+    </div>
   </div>
+
+
   <mat-form-field appearance="outline">
     <mat-label>Тема</mat-label>
     <input matInput formControlName="theme">
@@ -44,7 +59,7 @@
   <div class="files">
     <a mat-button class="files__add" (click)="fileInput.click()">
       <span>Добавить файл</span>
-      <input #fileInput type="file" (change)="onAddFile($event)" style="display:none;" />
+      <input #fileInput type="file" (change)="onAddFile($event)" style="display:none;"/>
     </a>
     <div class="files__block" *ngFor="let file of filesService.files; let i = index">
       <mat-icon class="files__block__close" (click)="onRemoveFile(file.id)">close</mat-icon>
@@ -55,5 +70,5 @@
     </div>
   </div>
 
-  <button mat-raised-button class="button__system" (click)="onSubmit()">Создать</button>
+  <button mat-raised-button class="button__system create-message" (click)="onSubmit()">Создать</button>
 </form>

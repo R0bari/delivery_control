@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {Router} from '@angular/router';
 import {DeliveryService} from '../../../delivery-services/models/DeliveryService';
 import {DeliveryServicesService} from '../../../delivery-services/services/delivery-services.service';
@@ -9,6 +9,7 @@ import {NotificationService} from '../../../shared/services/notification.service
 import {AuthService} from '../../../auth/services/auth.service';
 import {AttachedFile} from '../../models/AttachedFile';
 import {FilesService} from '../../../shared/services/files.service';
+import {DestinationEmail} from '../../models/DestinationEmail';
 
 @Component({
   selector: 'app-create-message-form',
@@ -24,7 +25,26 @@ export class CreateMessageFormComponent implements OnInit {
   maxScheduleDate: Date = new Date('2031/01/01');
   isHtml = false;
   files: AttachedFile[] = [];
-  destinationEmails: string[] = [];
+
+  get destinationEmails(): FormArray {
+    return this.form.get('destinationEmails') as FormArray;
+  }
+
+  private createForm(): FormGroup {
+    return this.formBuilder
+      .group({
+        theme: [null],
+        body: [null],
+        isHtml: [false],
+        destinationEmails: this.formBuilder.array([
+          this.formBuilder.group({
+            title: ['']
+          })
+        ]),
+        chosenDeliveryService: [null],
+        scheduleDate: [null]
+      });
+  }
 
   constructor(public filesService: FilesService,
               private formBuilder: FormBuilder,
@@ -32,7 +52,8 @@ export class CreateMessageFormComponent implements OnInit {
               private authService: AuthService,
               private messagesService: MessagesService,
               private notificationService: NotificationService,
-              private router: Router) {}
+              private router: Router) {
+  }
 
   ngOnInit(): void {
     this.form = this.createForm();
@@ -74,8 +95,7 @@ export class CreateMessageFormComponent implements OnInit {
         .value,
       this.form.get('body')
         .value,
-      this.form.get('destinationEmail')
-        .value.toLowerCase(),
+      this.formDestinationEmails(),
       this.form.get('chosenDeliveryService')
         .value,
       this.isScheduled,
@@ -87,18 +107,11 @@ export class CreateMessageFormComponent implements OnInit {
     );
   }
 
-  private createForm(): FormGroup {
-    return this.formBuilder
-      .group({
-        theme: [null],
-        body: [null],
-        isHtml: [false],
-        destinationEmail: [null, Validators.required],
-        chosenDeliveryService: [null],
-        scheduleDate: [null]
-      });
+  private formDestinationEmails(): any[] {
+    return this.destinationEmails.controls
+      .map(formGroup => new DestinationEmail(formGroup.value.title.toLowerCase()))
+      .filter(de => de.email);
   }
-
   private checkForm(): void {
     if (!this.form.value.theme) {
       this.form.get('theme').patchValue('Без темы');
@@ -127,5 +140,16 @@ export class CreateMessageFormComponent implements OnInit {
 
   onRemoveFile(id: number): void {
     this.filesService.deleteSelectedFile(id);
+  }
+
+  onAddDestination(): void {
+    const destinationForm = this.formBuilder.group({
+      title: ['']
+    });
+    this.destinationEmails.push(destinationForm);
+  }
+
+  onDeleteDestination(destinationIndex: number): void {
+    this.destinationEmails.removeAt(destinationIndex);
   }
 }

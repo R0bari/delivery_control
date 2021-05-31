@@ -1,21 +1,22 @@
 import {DeliveryStatuses} from '../../delivery-services/models/DeliveryStatuses';
 import {DeliveryService} from '../../delivery-services/models/DeliveryService';
 import {AttachedFile} from './AttachedFile';
+import {DestinationEmail} from './DestinationEmail';
 
 export class Message {
   messageId: number;
   attachedFiles: AttachedFile[] = [];
   theme = '';
   body = '';
+  creationDate = new Date();
   destinationDate: Date = null;
-  destinationEmail: string;
-  destinationEmails: string[] = [];
-  size = 0;
+  destinationEmails: DestinationEmail[] = [];
   isHtml = false;
   isScheduled = false;
   scheduleDate: Date = null;
   isSent = false;
   deliveryQueueId: any = 2;
+  deliveryQueue = null;
   chosenDeliveryService: DeliveryService = null;
   chosenDeliveryServiceId: number;
   usedDeliveryServiceId: number = null;
@@ -24,7 +25,7 @@ export class Message {
 
   constructor(theme: string,
               body: string,
-              destinationEmail: string,
+              destinationEmails: DestinationEmail[],
               chosenDeliveryService: DeliveryService,
               isScheduled: boolean,
               scheduleDate: any,
@@ -32,7 +33,7 @@ export class Message {
               isHtml: boolean) {
     this.theme = theme;
     this.body = body;
-    this.destinationEmail = destinationEmail;
+    this.destinationEmails = destinationEmails;
     this.isSent = false;
     this.isScheduled = isScheduled;
     this.scheduleDate = scheduleDate;
