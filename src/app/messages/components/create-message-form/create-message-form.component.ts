@@ -85,7 +85,7 @@ export class CreateMessageFormComponent implements OnInit {
           this.filesService.clearFiles();
           return;
         }
-        this.notificationService.showError('Ошибка', 'Ошибка при создании письма');
+        this.notificationService.showError('Ошибка', response.errorMessage);
       });
   }
 

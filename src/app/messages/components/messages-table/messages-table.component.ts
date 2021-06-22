@@ -4,8 +4,8 @@ import {Message} from '../../models/Message';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {MessagesService} from '../../services/messages.service';
-import {DeliveryStatuses} from '../../../delivery-services/models/DeliveryStatuses';
 import {Router} from '@angular/router';
+import { DeliveryStatuses } from '../../models/DeliveryStatuses';
 
 @Component({
   selector: 'app-messages-table',
@@ -23,11 +23,6 @@ export class MessagesTableComponent implements OnInit {
     'deliveryStatus',
     'buttons'];
   dataSource: MatTableDataSource<Message>;
-  deliveryStatuses: any = {
-    0: 'Доставлено',
-    1: 'Ожидает',
-    2: 'Не доставлено'
-  };
   updateIntervalInMs = 10 * 1000;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -88,14 +83,14 @@ export class MessagesTableComponent implements OnInit {
 
   determineDeliveryStatusCSSClass(message: Message): string {
     switch (message.deliveryStatus) {
-      case DeliveryStatuses.awaiting: return 'scheduled';
-      case DeliveryStatuses.successful: return 'successful';
-      case DeliveryStatuses.failed: return 'failed';
+      case 0: return 'successful';
+      case 1: return 'scheduled';
+      case 2: return 'failed';
     }
   }
 
   getDeliveryStatusString(message: Message): string {
-    return this.deliveryStatuses[message.deliveryStatus];
+    return DeliveryStatuses[message.deliveryStatus];
   }
 
   goToDetails(row): void {

@@ -1,15 +1,33 @@
-<div class="details-container">
+<div class="details">
   <h3>
     Информация о сообщении
     <button (click)="backToMessagesList()" mat-raised-button class="button__system button-back"><mat-icon>arrow_back</mat-icon>Назад</button>
   </h3>
-  <div class="destination">
-    <span class="description">Кому:</span>
-    <span class="destination-email" *ngFor="let destinationEmail of message.destinationEmails"><mat-icon>person</mat-icon>{{destinationEmail.email || 'Почта получателя'}}</span></div>
-  <div class="theme">
-    <span class="description">Тема:</span>
-    <span class="message-theme">{{message?.theme || 'Тема письма'}}</span></div>
-  <div class="body-title">Сообщение</div>
+  <div class="columns">
+    <div class="columns__details">
+      <div class="details__destination">
+        <span class="details__description">Кому:</span>
+        <span class="details__value" *ngFor="let destinationEmail of destinationEmails"
+              title="{{destinationEmail?.email}}">
+          <mat-icon>person</mat-icon>
+          {{destinationEmail?.name || destinationEmail?.email || 'Почта получателя'}}</span></div>
+      <div class="details__theme">
+        <span class="details__description">Тема:</span>
+        <span class="details__value">{{message?.theme || 'Тема письма'}}</span></div>
+    </div>
+    <div class="columns__status">
+      <div class="details__status">
+        <span class="details__description">Статус:</span>
+        <span class="details__value" [ngClass]="determineDeliveryStatusCSSClass(message)">{{deliveryStatuses[message?.deliveryStatus] || 'Статус доставки'}}</span>
+      </div>
+      <div *ngIf="message?.deliveryStatus === deliveryStatuses['Доставлено']" class="details__used-service">
+        <span class="details__description">Доставлено с помощью:</span>
+        <span class="details__value">{{deliveryTypes[message?.usedDeliveryService] || 'Не указан'}}</span>
+      </div>
+    </div>
+  </div>
+
+
   <p class="body">{{message?.body || 'Текст сообщения'}}</p>
   <div class="files">
     <h3 class="files__title">Файлы</h3>

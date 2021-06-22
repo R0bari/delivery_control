@@ -1,6 +1,6 @@
-import {DeliveryStatuses} from '../../delivery-services/models/DeliveryStatuses';
 import {DeliveryService} from '../../delivery-services/models/DeliveryService';
 import {AttachedFile} from './AttachedFile';
+import { DeliveryStatuses } from './DeliveryStatuses';
 import {DestinationEmail} from './DestinationEmail';
 
 export class Message {
@@ -17,9 +17,8 @@ export class Message {
   isSent = false;
   deliveryQueueId: any = 2;
   deliveryQueue = null;
-  chosenDeliveryService: DeliveryService = null;
-  chosenDeliveryServiceId: number;
-  usedDeliveryServiceId: number = null;
+  chosenDeliveryService: number;
+  usedDeliveryService: number = null;
   deliveryStatus: DeliveryStatuses = 0;
   userId;
 
@@ -37,8 +36,8 @@ export class Message {
     this.isSent = false;
     this.isScheduled = isScheduled;
     this.scheduleDate = scheduleDate;
-    this.chosenDeliveryServiceId = chosenDeliveryService.deliveryServiceId;
-    this.deliveryStatus = DeliveryStatuses.awaiting;
+    this.chosenDeliveryService = chosenDeliveryService.deliveryServiceId;
+    this.deliveryStatus = DeliveryStatuses.Ожидает;
     this.userId = userId;
     this.isHtml = isHtml;
   }

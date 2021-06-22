@@ -70,15 +70,12 @@ export class ContactsTableComponent implements OnInit {
       });
   }
 
-  updateContacts(): void {
-    this.contactsService.getContacts()
-      .subscribe((res: any) => {
-        if (res.isSuccess) {
-          this.dataSource = new MatTableDataSource(res.data);
-          this.dataSource.paginator = this.paginator;
-          this.dataSource.sort = this.sort;
-          this.cdr.detectChanges();
-        }
-      });
+  async updateContacts(): Promise<void> {
+    const contacts = await this.contactsService.getContacts();
+
+    this.dataSource = new MatTableDataSource(contacts);
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+    this.cdr.detectChanges();
   }
 }

@@ -1,9 +1,40 @@
 @import "../../../shared/styles/table-buttons";
 @import "../../../shared/styles/colors";
 
-.details-container {
+.details {
+  font-size: 18px;
   text-align: left;
   margin: 0 30px;
+
+
+  &__description {
+    font-weight: 500;
+    position: relative;
+    display: inline-block;
+    margin-right: 10px;
+  }
+
+  &__value {
+    position: relative;
+    padding: 5px;
+    margin-right: 5px;
+    border: #333 1px solid;
+    border-radius: 5px;
+    box-sizing: border-box;
+    box-shadow: 3px 0 7px rgb(0 0 0 / 20%);
+  }
+
+  .columns {
+
+    &__details, &__status {
+      display: inline-block;
+      vertical-align: top;
+    }
+
+    &__status {
+      margin-left: 20px;
+    }
+  }
 
   .button-back {
     float: right;
@@ -28,42 +59,20 @@
     margin-top: 20px;
   }
 
-  .destination-email, .message-theme {
-    position: relative;
-    padding: 5px;
-    margin-right: 5px;
-    border: #333 1px solid;
-    border-radius: 5px;
-    box-sizing: border-box;
-    box-shadow: 3px 0 7px rgb(0 0 0 / 20%);
-
+  &__theme, &__destination, &__status {
     mat-icon {
       vertical-align: middle;
       line-height: 20px;
     }
   }
 
-  .description {
-    font-weight: 500;
-    position: relative;
-    display: inline-block;
-    width: 60px;
-  }
-
   button {
     font-size: 18px;
     padding-left: 10px;
+
     mat-icon {
       line-height: 21px;
     }
-  }
-
-  .theme {
-    font-size: 18px;
-  }
-
-  .destination {
-    font-size: 18px;
   }
 
   .body-title {
@@ -79,7 +88,7 @@
     border-radius: 5px;
     box-sizing: border-box;
     box-shadow: 3px 0 7px rgb(0 0 0 / 20%);
-    margin: 5px 0;
+    margin: 20px 0 0 0;
     padding: 20px;
     font-size: 16px;
   }
@@ -123,5 +132,24 @@
         margin: 20px 0;
       }
     }
+  }
+
+
+  .scheduled {
+    padding: 5px 10px;
+    background-color: #fbff009d;
+    color: #a79c2d;
+    border-radius: 5px;
+  }
+  .failed {
+    padding: 5px 10px;
+    background-color: #f82b2b81;
+    border-radius: 5px;
+  }
+  .successful {
+    padding: 5px 10px;
+    background-color: #2bf87ae0;
+    color: #44944A;
+    border-radius: 5px;
   }
 }

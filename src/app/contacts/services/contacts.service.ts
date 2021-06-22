@@ -1,6 +1,6 @@
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { environment } from 'src/environments/environment';
+import {HttpClient} from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {environment} from 'src/environments/environment';
 import {Observable} from 'rxjs';
 import {Contact} from '../models/Contact';
 import {AuthService} from '../../auth/services/auth.service';
@@ -14,8 +14,13 @@ export class ContactsService {
   constructor(private http: HttpClient,
               private authService: AuthService) { }
 
-  getContacts(): Observable<any> {
-    return this.http.get(environment.defaultUrl + this.controllerUrl + 'user/' + this.authService.currentUser.userId);
+  async getContacts(): Promise<Contact[]> {
+    const response = await this.http.get<any>(
+      environment.defaultUrl + this.controllerUrl + 'user/' + this.authService.currentUser.userId).toPromise();
+    if (!response?.isSuccess) {
+      return null;
+    }
+    return response.data;
   }
 
   deleteContact(id: number): Observable<any> {
